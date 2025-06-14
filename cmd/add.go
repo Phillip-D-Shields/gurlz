@@ -11,6 +11,7 @@ import (
 	"gurlz/internal"
 
 	"github.com/google/uuid"
+	"github.com/charmbracelet/lipgloss"
 	"github.com/spf13/cobra"
 )
 
@@ -24,12 +25,7 @@ var (
 var addCmd = &cobra.Command{
 	Use:   "add",
 	Short: "Add a new request",
-	Long: `Add a new HTTP request to your collection.
-		
-Examples:
-  gurlz add api-health https://api.example.com/health
-  gurlz add api-users https://api.example.com/users -X POST -H "Content-Type: application/json" -d '{"name":"test"}'
-  gurlz add api-auth https://api.example.com/login -X POST -H "Authorization: Bearer token123"`,
+	Long: buildStyledLongDescription(),
 	Args: cobra.ExactArgs(2),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		name := args[0]
@@ -101,4 +97,19 @@ func init() {
 	addCmd.Flags().StringVarP(&method, "method", "X", "GET", "HTTP method")
 	addCmd.Flags().StringArrayVarP(&headers, "header", "H", []string{}, "HTTP headers (can be used multiple times)")
 	addCmd.Flags().StringVarP(&body, "data", "d", "", "Request body data")
+}
+
+func buildStyledLongDescription() string {
+	title := titleStyle.Render("Add a new HTTP request to your collection.")
+	description := lipgloss.JoinVertical(lipgloss.Left,
+		title,
+		"Examples:",
+		exampleStyle.Render("gurlz add api-health https://api.example.com/health"),
+		exampleStyle.Render(`gurlz add api-users https://api.example.com/users -X POST -H "Content-Type: application/json" -d '{"name":"test"}'`),
+		exampleStyle.Render(`gurlz add api-auth https://api.example.com/login -X POST -H "Authorization: Bearer token123"`),
+		"",
+		infoStyle.Render("💡 gurlz add <NAME> <URL> -H <HEADER> -X <METHOD> -d <REQUEST BODY> 💡"),
+	)
+
+	return description
 }

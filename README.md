@@ -170,7 +170,7 @@ GOOS=windows GOARCH=amd64 go build -o gurlz-windows-amd64.exe .
 - [ ] Import/Export (Postman, curl)
 - [ ] Configuration management
 - [ ] Response assertions
-- [ ] SQLite storage option
+- [ ] SQLite storage option??
 
 ## License
 
