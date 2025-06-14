@@ -1,0 +1,26 @@
+# Global default headers applied to all requests
+default_headers:
+  User-Agent: "gurlz/1.0.0"
+  Accept: "application/json"
+  Content-Type: "application/json"
+
+# Request timeout (30 seconds)
+timeout: 30s
+
+# Whether to follow HTTP redirects
+follow_redirect: true
+
+# Whether to save response data to history
+save_responses: true
+
+# Output format preference
+output_format: "json"  # json, yaml, table
+
+# Color output in terminal
+color_output: true
+
+# Default HTTP method when not specified
+default_method: "GET"
+
+# Maximum response body size to display (in bytes)
+max_response_size: 1048576  # 1MB
